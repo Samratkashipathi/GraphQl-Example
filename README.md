@@ -30,3 +30,30 @@ allPhotos {
   }
 }
 }
+
+# Example 3
+mutation {
+  createUser (name:"Sample 1", email: "sample@sample.com", age:22, friends:[1, 2,3 ,4]){
+    name
+  }
+}
+
+
+# Example 4
+{
+  allUsers {
+    edges {
+      node {
+        id,
+        name,
+        friends {
+          edges {
+            node {
+              name
+            }
+          }
+        }
+      }
+    }
+  }
+}
