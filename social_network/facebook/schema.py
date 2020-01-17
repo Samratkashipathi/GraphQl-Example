@@ -1,5 +1,6 @@
 import graphene
-
+from graphene import relay
+from graphene_django.filter import DjangoFilterConnectionField
 from graphene_django.types import DjangoObjectType
 
 from social_network.facebook.models import FacebookUser, Videos, Photos
@@ -8,6 +9,11 @@ from social_network.facebook.models import FacebookUser, Videos, Photos
 class FacebookUserType(DjangoObjectType):
     class Meta:
         model = FacebookUser
+
+        filter_fields = {
+            'name': ['exact', 'icontains', 'istartswith'],
+        }
+        interfaces = (relay.Node,)
 
 
 class VideosType(DjangoObjectType):
@@ -21,11 +27,13 @@ class PhotosType(DjangoObjectType):
 
 
 class Query(object):
-    all_users = graphene.List(FacebookUserType)
+    all_users = DjangoFilterConnectionField(FacebookUserType)
     all_photos = graphene.List(PhotosType)
     all_videos = graphene.List(VideosType)
 
     def resolve_all_users(self, info, **kwargs):
+        search = kwargs.get('search')
+
         return FacebookUser.objects.all()
 
     def resolve_all_photos(self, info, **kwargs):
