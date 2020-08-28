@@ -2,7 +2,7 @@
 GraphQl-Example
 
 # Example 1
-{  
+```json{  
   allUsers(name_Icontains: "samrat") {
     edges {
       node {
@@ -12,10 +12,11 @@ GraphQl-Example
     }
   }
 }
+```
 
 # Example 2
 
-{
+```json{
 allPhotos {
   id,
   name,
@@ -30,17 +31,20 @@ allPhotos {
   }
 }
 }
+```
 
 # Example 3
+```josn
 mutation {
   createUser (name:"Sample 1", email: "sample@sample.com", age:22, friends:[1, 2,3 ,4]){
     name
   }
 }
+```
 
 
 # Example 4
-{
+```json{
   allUsers {
     edges {
       node {
@@ -57,3 +61,4 @@ mutation {
     }
   }
 }
+```
